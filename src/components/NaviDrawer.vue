@@ -39,23 +39,9 @@
 
 <script>
 export default {
-  props: ["title"],
+  props: ["title", "items"],
   data: () => ({
-    items: [
-      {
-        title: "home",
-        icon: "mdi-home",
-		active : true,
-        subItems: [{ title: "Dashboard", to: "/" }],
-      },
-      {
-        title: "about",
-        icon: "mdi-information-outline",
-		
-        subItems: [{ title: "About", to: "/about" }],
-      },
-      { title: "xxxx", icon: "mdi-microsoft-xbox" },
-    ],
+    //
   }),
 };
 </script>
