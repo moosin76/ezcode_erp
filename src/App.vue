@@ -5,6 +5,7 @@
       <site-title :title="site.title" />
       <v-spacer></v-spacer>
       <!-- action -->
+	  <site-sign/>
     </v-app-bar>
 
     <v-navigation-drawer v-model="drawer" fixed temporary width="400">
@@ -26,6 +27,7 @@ import { mapState, mapMutations, mapActions } from "vuex";
 import NaviDrawer from "./components/NaviDrawer.vue";
 import SiteFooter from "./components/SiteFooter.vue";
 import SiteTitle from "./components/SiteTitle.vue";
+import SiteSign from './components/SiteSign.vue';
 
 export default {
   name: "App",
@@ -34,6 +36,7 @@ export default {
     NaviDrawer,
     SiteFooter,
     SiteTitle,
+    SiteSign,
   },
 
   data: () => ({

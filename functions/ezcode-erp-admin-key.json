@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "ezcode-erp",
+  "private_key_id": "f5c98099fb102560f8ac517df6333a1907760cb4",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDFiECPWdGMxcgv\n3lcfYgxVsQ9cnk45EyVU04AMgRF4kvF3f6UGJKyMNx90BRN0PBUHjdaPx1b72uWO\nAGUEoiSQKro9LPPDapli/SXjQ+FzezUzM80/mEWpbXS8p0xEVVd3Mhyx2EsnUSoj\nPPOpJ4E4Xnho8Zrpy6S1wBQghn2BPC0/CGhfWB08IUhr5IdM++bsdAkUNwxbl2ny\n/fNjwZZLoZTSnRYXGhKaUDWoCsCBCVxScqVANaqbdGjSrFbtndmmPydRh+5gg6OA\nb3C+WjvE3Zotd+S9341IL1C6oFw/5sC8JV1xbwjfHTY8FU0ZnXA5v35B/oHTHDJD\ndf7S1w57AgMBAAECggEASfakUejsXX07Ya0ryyz/+GA1o9UE7jscieAt/MChZZgE\nAV5S0POPhmsnhF5YM/hBWZRDKJAYInMK7Hp6WNtLvI27Mafw2JXEPHwUoT3sH70d\nJQB7FJp0TyYUhYVROe8IsrGZbABU17J9CDfM9uQ7bvt0s7rv6iYeFQ4Im0swmGBj\nGyAHsaUcJ//d7jbCdIZmVAt1l82Yx4lZceZNp23tw9wXFroNslEFQpSO0FNhMfxs\nCmqFlot0Ug5p+AQTzVOWcxH8hZVP6aWS9JnR+E2N8G5Fsc1SL7KAGkhumy4Whps5\n3KM46UIbds5K59Xz7j7aT2k9wdG+4zrafVeLqfil5QKBgQDhE1U1nKFnIbTGXlvS\nGMxabmWyNwIBVEPzLL1hhEiu1PAPzot9dfz3YOAcHmlBOa7G2xeO8aVMvIJZPY12\nPEMRhu9p6fIcTB+ugrMh10f16o2jIScYgLkhc7iKVeU67YZiry+rGRNI2eteuxtZ\nWkMWzkytAqjOnVLZznPunGOxvwKBgQDgrCD/qCZ3ynCz1ZRCenlTmegpUIW20Ejc\nIB9pH1uj0YnHYHRXthyCyzatUiE2crAUkXIsaB9N6NkzZZdZpkQxdvE6jvvo59hj\np1gPQ+F+qUjCpDEq6RihyY6JDnHOOkPcoXNDSi+lU0bYQkEmG03jMyFEdaUCJTJl\nJU+rCUVaRQKBgAtu0Pg9MZGsi6M77cwZSGAblXzdAHQS1LTIhAItFwgSdvNGmZ1Q\n3f2u5RNolA4lIPSm8mZnbe8c8D4aO1JTM1Dzmru1j3/SehWCPBku90/Nj05HA9Zh\ny4WgfDJCtLcuk5H1tiUpy+n6b9NLC9OZGylQZ2KubOa55Rh9PTRUq1e/AoGAa2Ja\nM1fPaxobXBkNT+jx7H93c6fFAWf0KyI/YSNXzajtTZpQgUvNvMYcUCMdNMUEXBBY\nndj2fWp5xhMckADkPzA2hGKrDNsjlh35/PHY6Y1H9aA8z+GxoEKSGfgJdSRsIxwX\n12Wx+DcheWPRd8E9LQbXM713LNtShv2aYol/2HECgYAYbZe1kZ6jsWGLns9H+ENQ\nSOuZqqdEoJBFG7FzuzyZi72G3r/yPp9m9oO9X4lD9pfPAeTh5Xl4EC6VpRq4hePk\nwQeOE/LTBRckxqmvACXEkT//fD5saYllkewNRFayvsBr4r2YbOFTGE2FZx9/q5bu\nq7V7PsywtLbh9sp/BFnMPQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-sjptk@ezcode-erp.iam.gserviceaccount.com",
+  "client_id": "108362958571766961544",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-sjptk%40ezcode-erp.iam.gserviceaccount.com"
+}
