@@ -1,16 +1,23 @@
 <template>
   <div>
-    <v-list-item>
-      <v-list-item-content>
-        <v-list-item-title class="title">
-          {{ title }}
-        </v-list-item-title>
-        <v-list-item-subtitle>v 0.0.1</v-list-item-subtitle>
-      </v-list-item-content>
-	  <v-list-item-action>
-		  <v-btn icon><v-icon>mdi-cog</v-icon></v-btn>
-	  </v-list-item-action>
-    </v-list-item>
+    <v-list>
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title class="title">
+            {{ title }}
+          </v-list-item-title>
+          <v-list-item-subtitle>v 0.0.1</v-list-item-subtitle>
+        </v-list-item-content>
+        <!-- 관리자 -->
+        <v-list-item-action>
+          <v-btn icon @click="setSiteEdit(!editable)">
+            <v-icon v-if="editable">mdi-eye</v-icon>
+            <v-icon v-else>mdi-cog</v-icon>
+          </v-btn>
+        </v-list-item-action>
+        <!-- // 관리자 -->
+      </v-list-item>
+    </v-list>
     <v-divider></v-divider>
     <v-list>
       <v-list-group
@@ -25,12 +32,43 @@
             <v-list-item-title v-text="item.title"></v-list-item-title>
           </v-list-item-content>
           <!-- 관리자 -->
-          <v-list-item-icon>
-            <v-btn icon color="primary" @click.stop.prevent="openMainDialog(i)">
+          <v-list-item-icon v-if="editable">
+            <v-btn
+              icon
+              color="primary"
+              small
+              @click.stop.prevent="openMainDialog(i)"
+            >
               <v-icon>mdi-pencil</v-icon>
             </v-btn>
-            <v-btn icon color="error" @click.stop.prevent="deleteMainItem(i)">
+            <v-btn
+              icon
+              color="error"
+              small
+              @click.stop.prevent="deleteMainItem(i)"
+            >
               <v-icon>mdi-minus</v-icon>
+            </v-btn>
+            <v-btn
+              icon
+              color="info"
+              small
+              @click.stop.prevent="moveMainItem(items, i, -1)"
+              v-if="i != 0"
+              :class="{ 'mr-7': i == items.length - 1 }"
+            >
+              <v-icon>mdi-chevron-up</v-icon>
+            </v-btn>
+
+            <v-btn
+              icon
+              color="info"
+              small
+              @click.stop.prevent="moveMainItem(items, i, 1)"
+              v-if="i != items.length - 1"
+              :class="{ 'ml-7': i == 0 }"
+            >
+              <v-icon>mdi-chevron-down</v-icon>
             </v-btn>
           </v-list-item-icon>
           <!-- // 관리자 -->
@@ -39,28 +77,55 @@
         <v-list-item
           v-for="(sub, j) in item.subItems"
           :key="`${sub.title}_${j}`"
-          :to="sub.to"
+          :to="editable ? null : sub.to"
         >
           <v-list-item-content>
             <v-list-item-title v-text="sub.title"></v-list-item-title>
           </v-list-item-content>
           <!-- 관리자 -->
-          <v-list-item-icon>
+          <v-list-item-icon v-if="editable" class="pr-7">
             <v-btn
               icon
               color="primary"
+              small
               @click.stop.prevent="openSubDialog(i, j)"
             >
               <v-icon>mdi-pencil</v-icon>
             </v-btn>
-            <v-btn icon color="error" @click.stop.prevent="deleteSubItem(i, j)">
+            <v-btn
+              icon
+              color="error"
+              small
+              @click.stop.prevent="deleteSubItem(i, j)"
+            >
               <v-icon>mdi-minus</v-icon>
+            </v-btn>
+            <v-btn
+              icon
+              color="info"
+              small
+              @click.stop.prevent="moveMainItem(item.subItems, j, -1)"
+              v-if="j != 0"
+              :class="{ 'mr-7': j == item.subItems.length - 1 }"
+            >
+              <v-icon>mdi-chevron-up</v-icon>
+            </v-btn>
+
+            <v-btn
+              icon
+              color="info"
+              small
+              @click.stop.prevent="moveMainItem(item.subItems, j, 1)"
+              v-if="j != item.subItems.length - 1"
+              :class="{ 'ml-7': j == 0 }"
+            >
+              <v-icon>mdi-chevron-down</v-icon>
             </v-btn>
           </v-list-item-icon>
           <!-- // 관리자 -->
         </v-list-item>
         <!-- 관리자 -->
-        <v-list-item @click="openSubDialog(i, -1)">
+        <v-list-item v-if="editable" @click="openSubDialog(i, -1)">
           <v-list-item-icon><v-icon>mdi-plus</v-icon> </v-list-item-icon>
           <v-list-item-content>
             <v-list-item-title>서브 추가하기</v-list-item-title>
@@ -69,7 +134,7 @@
         <!-- // 관리자 -->
       </v-list-group>
       <!-- 관리자 -->
-      <v-list-item @click="openMainDialog(-1)">
+      <v-list-item v-if="editable" @click="openMainDialog(-1)">
         <v-list-item-icon><v-icon>mdi-plus</v-icon> </v-list-item-icon>
         <v-list-item-content>
           <v-list-item-title>추가하기</v-list-item-title>
@@ -149,6 +214,8 @@
 </template>
 
 <script>
+import { mapState, mapMutations, mapActions } from "vuex";
+
 export default {
   props: ["title", "items"],
   data() {
@@ -174,7 +241,13 @@ export default {
       },
     };
   },
+  computed: {
+    ...mapState({
+      editable: (state) => state.global.editable,
+    }),
+  },
   methods: {
+    ...mapMutations("global", ["setSiteEdit"]),
     openMainDialog(idx) {
       if (idx < 0) {
         this.main.title = "신규 메뉴 추가";
@@ -206,7 +279,6 @@ export default {
       this.sub.dialog = true;
     },
     saveMainDialog() {
-		
       if (this.main.selectedIdx < 0) {
         // 신규 메뉴 추가
         this.items.push(this.main.form);
@@ -217,7 +289,6 @@ export default {
       this.save();
     },
     saveSubDialog() {
-		
       const parent = this.items[this.sub.parentIdx];
       if (this.sub.selectedIdx < 0) {
         try {
@@ -247,6 +318,12 @@ export default {
         this.save();
       }
     },
+    moveMainItem(items, i, dir) {
+      const item = items.splice(i, 1)[0];
+      items.splice(i + dir, 0, item);
+      this.save();
+    },
+
     async save() {
       try {
         await this.$firebase
