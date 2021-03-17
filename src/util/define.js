@@ -1,8 +1,7 @@
 const define = {
     LV : { // 유저 레벨
         ADMIN : 10,
-        MEMBER : 2,
-        NOMEMBER : 1,
+        MEMBER : 0,
     }, 
     BRPOINT : { // 반응형 브레이크 포인트
         XS : 600,

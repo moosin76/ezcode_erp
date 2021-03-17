@@ -45,7 +45,7 @@
               icon
               color="error"
               small
-              @click.stop.prevent="deleteMainItem(i)"
+              @click.stop.prevent="deleteItem(items, i)"
             >
               <v-icon>mdi-minus</v-icon>
             </v-btn>
@@ -96,7 +96,7 @@
               icon
               color="error"
               small
-              @click.stop.prevent="deleteSubItem(i, j)"
+              @click.stop.prevent="deleteItem(item.subItems, j)"
             >
               <v-icon>mdi-minus</v-icon>
             </v-btn>
@@ -302,19 +302,9 @@ export default {
       }
       this.save();
     },
-    deleteSubItem(parentIdx, idx) {
-      if (
-        confirm(
-          `${this.items[parentIdx].subItems[idx].title} 메뉴를 삭제 하시겠습니까?`
-        )
-      ) {
-        this.items[parentIdx].subItems.splice(idx, 1);
-        this.save();
-      }
-    },
-    deleteMainItem(idx) {
-      if (confirm(`${this.items[idx].title} 메뉴를 삭제 하시겠습니까?`)) {
-        this.items.splice(idx, 1);
+    deleteItem(items, idx) {
+      if (confirm(`${items[idx].title} 메뉴를 삭제 하시겠습니까?`)) {
+        items.splice(idx, 1);
         this.save();
       }
     },
