@@ -42,17 +42,13 @@ export default {
       this.dialog = false;
     },
     async saveDialog() {
-      try {
-        await this.$firebase
-          .database()
-          .ref()
-          .child("site")
-          .update({ title: this.text });
-      } catch(e) {
-		  console.log(e.message);
-	  } finally {
-		this.dialog = false;
-	  }
+      await this.$firebase
+        .database()
+        .ref()
+        .child("site")
+        .update({ title: this.text });
+
+      this.dialog = false;
     },
   },
 };

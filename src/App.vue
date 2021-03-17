@@ -15,7 +15,7 @@
       </v-btn>
     </v-app-bar>
 
-    <v-navigation-drawer v-model="drawer" absolute temporary>
+    <v-navigation-drawer v-model="drawer" absolute temporary width="400">
       <navi-drawer :title="site.title" :items="site.menu" />
     </v-navigation-drawer>
 
@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import "./assets/css/style.css";
 import NaviDrawer from "./components/NaviDrawer.vue";
 import SiteFooter from "./components/SiteFooter.vue";
 import SiteTitle from "./components/SiteTitle.vue";
@@ -79,7 +80,6 @@ export default {
           "value",
           (sn) => {
             const v = sn.val();
-			console.log("load ", v);
             if (!v) {
               this.$firebase.database().ref().child("site").set(this.site);
             } else {
