@@ -1,7 +1,8 @@
 <template>
   <div class="d-flex align-center">
     {{ title }}
-    <v-btn icon @click="openDialog"><v-icon>mdi-pen</v-icon></v-btn>
+	<!-- 관리자 -->
+    <v-btn icon @click="openDialog"><v-icon>mdi-pencil</v-icon></v-btn>
     <v-dialog v-model="dialog" max-width="400px">
       <v-card>
         <v-card-title>
@@ -21,6 +22,7 @@
         </v-card-text>
       </v-card>
     </v-dialog>
+	<!-- // 관리자 -->
   </div>
 </template>
 
