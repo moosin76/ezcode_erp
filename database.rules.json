@@ -1,11 +1,10 @@
 {
-  "rules": {
-    //".read": "now < 1618412400000",  // 2021-4-15
-    //".write": "now < 1618412400000",  // 2021-4-15
-	".read" : true,
-	"site" : {
-		".write" : "root.child('users').child(auth.uid).val().level==10"
+	"rules": {
+		//".read": "now < 1618412400000",  // 2021-4-15
+		//".write": "now < 1618412400000",  // 2021-4-15
+		".read": true,
+		"site": {
+			".write": "root.child('users').child(auth.uid).child('level').val()==10"
+		}
 	}
-	
-  }
 }
