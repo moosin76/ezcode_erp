@@ -5,8 +5,8 @@ var admin = require("firebase-admin");
 var serviceAccount = require("./ezcode-erp-admin-key.json");
 
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://ezcode-erp-default-rtdb.firebaseio.com"
+	credential: admin.credential.cert(serviceAccount),
+	databaseURL: "https://ezcode-erp-default-rtdb.firebaseio.com"
 });
 
 // exports.helloWorld = functions.https.onRequest((request, response) => {
@@ -18,12 +18,12 @@ const db = admin.database();
 
 // 계정이 생성될 때 
 exports.createUser = functions.auth.user().onCreate(async (user) => {
-	const {uid, email, displayName, photoURL} = user;
+	const { uid, email, displayName, photoURL } = user;
 	const mb = {
-		email,
-		displayName,
-		photoURL,
-		createAt : new Date()
+		email: email,
+		displayName: displayName,
+		photoURL: photoURL,
+		createAt: new Date()
 	};
 	db.ref('users').child(uid).set(mb);
 });
