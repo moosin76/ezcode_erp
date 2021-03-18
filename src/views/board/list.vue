@@ -9,7 +9,13 @@
         </v-btn>
       </v-card-actions>
       <v-card-text>
-        <v-data-table :headers="headers" :items="items">
+        <v-data-table
+          :headers="headers"
+          :items="items"
+          :items-per-page="5"
+          :options.sync="options"
+          :server-items-length="serverItemsLength"
+        >
           <template v-slot:item.id="{ item }">
             <v-btn icon @click="openDialog(item)">
               <v-icon>mdi-pencil</v-icon>
@@ -17,6 +23,10 @@
             <v-btn icon @click="remove(item)">
               <v-icon>mdi-trash-can</v-icon>
             </v-btn>
+          </template>
+
+          <template v-slot:item.createAt="{ item }">
+            {{ item.createAt.toLocaleString() }}
           </template>
         </v-data-table>
       </v-card-text>
@@ -52,14 +62,22 @@
 
 <script>
 export default {
+  name: "BOARD",
   data() {
     return {
       items: [],
+      docs: [],
       headers: [
         { value: "title", text: "제목" },
         { value: "content", text: "내용" },
-        { value: "id", text: "ID" },
+        { value: "createAt", text: "작성일" },
+        { value: "id", text: "ID", sortable: false },
       ],
+      options: {
+        sortBy: ["createAt"],
+        sortDesc: [true],
+      },
+      serverItemsLength: 0,
       dialog: false,
       selectedItem: null,
       form: {
@@ -67,30 +85,85 @@ export default {
         content: "",
       },
       unsubscribe: null,
+      unsubscribeCount: null,
     };
   },
+  watch: {
+    options: {
+      handler(cur, old) {
+        console.log(cur, old);
+        let dir = cur.page - old.page;
+        this.subscribe(dir);
+      },
+      deep: true,
+    },
+  },
+
   created() {
     // this.read();
-    this.subscribe();
+    // this.subscribe();
   },
   destroyed() {
     if (this.unsubscribe != null) {
       this.unsubscribe();
     }
+    if (this.unsubscribeCount != null) {
+      this.unsubscribeCount();
+    }
   },
   methods: {
-    subscribe() {
-      this.unsubscribe = this.$firebase
+    subscribe(dir) {
+      this.unsubscribeCount = this.$firebase
         .firestore()
-        .collection("borads")
-        .onSnapshot((sn) => {
-          if (sn.empty) {
-            this.items = [];
+        .collection("meta")
+        .doc("boards")
+        .onSnapshot((doc) => {
+          // console.log(doc);
+          if (doc.exists) {
+            this.serverItemsLength = doc.data().count;
           } else {
-            this.items = sn.docs.map((v) => ({ id: v.id, ...v.data() }));
-            console.log(this.items);
+            this.serverItemsLength = 0;
           }
         });
+
+      const order = this.options.sortBy[0];
+      const sort = this.options.sortDesc[0] ? "desc" : "asc";
+      console.log(order, sort);
+
+      let ref = this.$firebase.firestore().collection("boards");
+      if (order) {
+        ref = ref.orderBy(order, sort);
+      }
+
+      const limit = this.options.itemsPerPage;
+      let query;
+      switch (dir) {
+        case -1: //이전 페이지
+          const first = this.docs[0];
+          query = ref.endBefore(first).limitToLast(limit);
+          break;
+        case 1: // 다음 페이지
+          const last = this.docs[this.docs.length - 1];
+          query = ref.startAfter(last).limit(limit);
+          break;
+        default:
+          // 현재 페이지
+          query = ref.limit(limit);
+      }
+
+      this.unsubscribe = query.onSnapshot((sn) => {
+        if (sn.empty) {
+          this.items = [];
+        } else {
+          this.docs = sn.docs;
+          this.items = sn.docs.map((v) => ({
+            id: v.id,
+            ...v.data(),
+            createAt: v.data().createAt.toDate(),
+          }));
+          console.log(this.items);
+        }
+      });
     },
     openDialog(item) {
       if (!item) {
@@ -104,29 +177,33 @@ export default {
       this.dialog = true;
     },
     add() {
-      this.$firebase.firestore().collection("borads").add(this.form);
+      const item = {
+        createAt: new Date(),
+        ...this.form,
+      };
+      this.$firebase.firestore().collection("boards").add(item);
       this.dialog = false;
     },
     update() {
       this.$firebase
         .firestore()
-        .collection("borads")
+        .collection("boards")
         .doc(this.selectedItem.id)
         .update(this.form);
       this.dialog = false;
     },
     remove(item) {
-      this.$firebase.firestore().collection("borads").doc(item.id).delete();
+      this.$firebase.firestore().collection("boards").doc(item.id).delete();
     },
     async read() {
-      const sn = await this.$firebase.firestore().collection("borads").get();
-      //   console.log(sn.docs);
-      //   sn.docs.forEach(v=>{
-      // 	  console.log(v.id);
-      // 	  console.log(v.data());
-      //   });
-      this.items = sn.docs.map((v) => ({ id: v.id, ...v.data() }));
-      console.log(this.items);
+      //   const sn = await this.$firebase.firestore().collection("boards").get();
+      //   //   console.log(sn.docs);
+      //   //   sn.docs.forEach(v=>{
+      //   // 	  console.log(v.id);
+      //   // 	  console.log(v.data());
+      //   //   });
+      //   this.items = sn.docs.map((v) => ({ id: v.id, ...v.data() }));
+      //   console.log(this.items);
     },
   },
 };
