@@ -143,7 +143,7 @@ export default {
           query = ref.endBefore(first).limitToLast(limit);
           break;
         case 1: // 다음 페이지
-          const last = this.docs[this.docs.length - 1];
+          const last = this.docs[this.docs.length - 1];  
           query = ref.startAfter(last).limit(limit);
           break;
         default:

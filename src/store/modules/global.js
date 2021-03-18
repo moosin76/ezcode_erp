@@ -3,7 +3,7 @@ import Vue from 'vue';
 export const state = {
 	isLoading: false,
 	windowSize :{x :0, y:0},
-	editable :true,
+	editable :false,
 }
 
 export const mutations = {

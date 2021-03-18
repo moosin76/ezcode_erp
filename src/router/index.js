@@ -20,6 +20,16 @@ const routes = [
 	path: '/board',
     name: 'Board',
     component: () => import(/* webpackChunkName: "board" */ '../views/board/list.vue')
+  },
+  {
+	path: '/storage',
+    name: 'Storage',
+    component: () => import(/* webpackChunkName: "storage" */ '../views/storage.vue')
+  },
+  {
+	path: '/editor',
+    name: 'Editor',
+    component: () => import(/* webpackChunkName: "editor" */ '../views/editor.vue')
   }
 ]
 

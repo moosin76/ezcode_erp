@@ -3,11 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "vue-cli-service serve",
     "build": "vue-cli-service build",
-	"functions" : "firebase deploy --only functions"
+    "functions": "firebase deploy --only functions",
+    "start": "vue-cli-service serve"
   },
   "dependencies": {
+    "@toast-ui/vue-editor": "^2.5.1",
     "core-js": "^3.6.5",
     "firebase": "^8.3.0",
     "vue": "^2.6.11",
@@ -22,8 +23,10 @@
     "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-plugin-vuex": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
+    "axios": "^0.18.0",
     "sass": "^1.32.0",
     "sass-loader": "^10.0.0",
+    "vue-cli-plugin-axios": "~0.0.4",
     "vue-cli-plugin-vuetify": "~2.2.2",
     "vue-template-compiler": "^2.6.11",
     "vuetify-loader": "^1.7.0"
