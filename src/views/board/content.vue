@@ -5,7 +5,7 @@
         <v-toolbar-title>{{ info.title }}</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn icon @click="write"><v-icon>mdi-pencil</v-icon></v-btn>
-		<v-btn icon @click="articleWrite"><v-icon>mdi-pen-plus</v-icon></v-btn>
+        <v-btn icon @click="articleWrite"><v-icon>mdi-pen-plus</v-icon></v-btn>
       </v-toolbar>
       <v-card-text v-if="info.createAt">
         <v-alert color="info" outlined dismissible>
@@ -18,13 +18,17 @@
           </div>
         </v-alert>
       </v-card-text>
-      <v-card-text> articles </v-card-text>
+		<board-article :info="info" :collection="collection" :document="document"></board-article>
     </v-card>
   </v-container>
 </template>
 
 <script>
+import BoardArticle from "./article/index";
 export default {
+  components: {
+    BoardArticle,
+  },
   props: ["collection", "document"],
   data() {
     return {
@@ -69,8 +73,11 @@ export default {
     write() {
       this.$router.push(this.$route.path + "/board-write");
     },
-	articleWrite() {
-      this.$router.push({path : this.$route.path + "/article-write", query:{articleId : null}});
+    articleWrite() {
+      this.$router.push({
+        path: this.$route.path + "/article-write",
+        query: { articleId: null },
+      });
     },
   },
 };
