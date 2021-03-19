@@ -2,41 +2,14 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import store from '../store';
 import Define from '../util/define';
+import routes from './routes';
 
 Vue.use(VueRouter);
-
-const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: () => import(/* webpackChunkName: "home" */ '../views/Home.vue')
-  },
-  {
-    path: '/about',
-    name: 'About',
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  },
-  {
-	path: '/board',
-    name: 'Board',
-    component: () => import(/* webpackChunkName: "board" */ '../views/board/list.vue')
-  },
-  {
-	path: '/storage',
-    name: 'Storage',
-    component: () => import(/* webpackChunkName: "storage" */ '../views/storage.vue')
-  },
-  {
-	path: '/editor',
-    name: 'Editor',
-    component: () => import(/* webpackChunkName: "editor" */ '../views/editor.vue')
-  }
-]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes : routes
 });
 
 // firebase 로그인 대기
