@@ -1,10 +1,10 @@
 <template>
-  <v-card>board list</v-card>
+  <v-card>{{collection}} list</v-card>
 </template>
 
 <script>
 export default {
-
+	props: ['collection']
 }
 </script>
 

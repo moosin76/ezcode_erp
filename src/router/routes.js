@@ -26,8 +26,13 @@ const routes = [
 	},
 	{
 		path: '/:collection/:document',
-		name: 'Renderer',
-		component: () => import(/* webpackChunkName: "renderer" */ '../views/renderer.vue')
+		name: 'CollectionDocument',
+		component: () => import(/* webpackChunkName: "collection_document" */ '../views/renderer.vue')
+	},
+	{
+		path: '/:collection/:document/:action',
+		name: 'CollectionDocumentAction',
+		component: () => import(/* webpackChunkName: "collection_document_action " */ '../views/renderer.vue')
 	},
 	{
 		path: '*',
