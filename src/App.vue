@@ -1,6 +1,6 @@
 <template>
   <v-app v-resize="onResize">
-    <v-app-bar app color="primary" dark>
+    <v-app-bar app color="primary" dark >
       <v-app-bar-nav-icon @click="drawer = !drawer" />
       <site-title :title="site.title" />
       <v-spacer></v-spacer>

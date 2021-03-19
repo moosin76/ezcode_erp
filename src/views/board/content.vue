@@ -5,6 +5,7 @@
         <v-toolbar-title>{{ info.title }}</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn icon @click="write"><v-icon>mdi-pencil</v-icon></v-btn>
+		<v-btn icon @click="articleWrite"><v-icon>mdi-pen-plus</v-icon></v-btn>
       </v-toolbar>
       <v-card-text v-if="info.createAt">
         <v-alert color="info" outlined dismissible>
@@ -65,8 +66,11 @@ export default {
         this.info = doc.data();
       });
     },
-    async write() {
-      this.$router.push(this.$route.path + "/write");
+    write() {
+      this.$router.push(this.$route.path + "/board-write");
+    },
+	articleWrite() {
+      this.$router.push({path : this.$route.path + "/article-write", query:{articleId : null}});
     },
   },
 };
